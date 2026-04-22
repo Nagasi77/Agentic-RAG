@@ -1,7 +1,7 @@
 from pyspark.sql import SparkSession
 from langchain_chroma import Chroma
 from langchain_core import Document
-from langchain_text_splitter import CharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
 
@@ -18,6 +18,7 @@ split_docs = text_splitter.split_documents(docs)
 
 # Inisialisasi model embedding
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+\
 
 # ChromaDB untuk menyimpan embedding
 vector_db = Chroma.from_documents(
