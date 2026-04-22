@@ -1,0 +1,12 @@
+.env
+venv/
+.venv/
+env/
+pycache/
+chroma_db/
+data_input/
+node_modules/
+.next/
+out/
+results.json
+.DS_Store
