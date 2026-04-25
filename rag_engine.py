@@ -20,20 +20,29 @@ def agentic_rag(query):
     
     prompt = f"""
     Kamu adalah AI Assistant yang jujur. Gunakan konteks berikut untuk menjawab pertanyaan.
-    Konteks:
+    
+    KONTEKS:
     {context}
-
-    Pertanyaan: {query}
-
-    Aturan:
+    
+    PERTANYAAN: {query}
+    
+    ATURAN:
     1. Jika jawaban tidak ada di dalam KONTEKS, katakan "Maaf, data tidak ditemukan di database". 
     2. Jangan mengarang informasi di luar konteks yang diberikan.
     3. Berikan jawaban yang singkat dan padat.
     """
-    chat_completion = client.chat.completions.create(
-        messages=[
-            {"role": "system", "content": prompt}
-        ], model="llama-3-8b-instant",)
+
+    # Memanggil API Groq
+    response = client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama-3.1-8b-instant",
+    )
+    
+    # Perbaikan: Cek apakah response berupa tuple
+    if isinstance(response, tuple):
+        chat_completion = response[0]
+    else:
+        chat_completion = response
 
     return chat_completion.choices[0].message.content
 

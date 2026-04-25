@@ -1,6 +1,6 @@
 from pyspark.sql import SparkSession
 from langchain_chroma import Chroma
-from langchain_core import Document
+from langchain_core import documents
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
@@ -13,7 +13,7 @@ raw_texts = [row.value for row in df.collect()]
 
 # Sistem pembgian teks menjadi bagian-bagian kecil
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-docs = [Document(page_content=x) for x in raw_texts]
+docs = [documents.Document(page_content=x) for x in raw_texts]
 split_docs = text_splitter.split_documents(docs)
 
 # Inisialisasi model embedding
